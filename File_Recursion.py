@@ -2,9 +2,12 @@ import os
 
 
 testdir = os.path.join(os.getcwd(), "testdir")
-
+testdir_1 = os.path.join(os.getcwd(), "testdir_1")
+testdir_2 = os.path.join(os.getcwd(), "testdir_2")
 
 def find_files(suffix, path):
+
+
 
 
     def walk_dir(suffix, path):
@@ -25,7 +28,12 @@ def find_files(suffix, path):
                     files.append(os.path.join(test_path, each))
         return files
 
-    return walk_dir(suffix, path)
+    files = walk_dir(suffix, path)
+
+    if len(files) == 0:
+        return "No {} found".format(suffix)
+    else:
+        return files
 
 
 if __name__ == "__main__":
@@ -35,6 +43,17 @@ if __name__ == "__main__":
     for file in files:
         print(file)
 
+    print("\n")
 
+    print("Searching testdir_1 for files ending in .c. testdir_1 includes files without extensions and invalid extensions")
+    files = find_files(".c", testdir_1)
+    print("The Following Files were found ending in .c")
+    for file in files:
+        print(file)
 
+    print("\n")
 
+    print("Searching testdir_2 for files ending in .c. testdir_2 contains no .C files")
+    files = find_files(".c", testdir_2)
+    print("The Following Files were found ending in .c")
+    print(files)

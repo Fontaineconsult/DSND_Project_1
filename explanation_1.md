@@ -30,6 +30,10 @@ LRU Cache
     _Using Hash and Linked lists are ideal for LRU cache as they are both (O)1 when looking up and reordering._
     
     Worst case is O(1)
+    
+    Space complexity for a linked list and hashtable is O(N). We use one of each and they both store the 
+    same data, so space compexity would be O(N2)
+    
 
 File Recursion
 
@@ -53,7 +57,11 @@ File Recursion
     Recursive function = O(N) depth of the recursion
     Two loops = O(N) + O(N) number of files and folders, number of files. 
     
-    Worst case: O(N + (O(N) + O(N))) ???
+    Worst case time complexity: O(N + (O(N) + O(N))) ???
+    
+    Space complexity for recursive functions is O(NM), where n the depth of the recursive stack
+    and M is the size of each function call. The space complexity for the file recursion would
+    depend on how deeply nested the folder structure is that we are searching. 
     
     
     
@@ -119,6 +127,10 @@ Huffman Tree
     Since most opperations are O(N), we can say:
     
         Worst Case: (N Log N) + 9N where N is length of input string
+        
+        
+    Space complexity for a binary tree is O(N), so the space complexity is O(N), where N is the size of the 
+    input string.
 
 Active Directory
 
@@ -131,7 +143,9 @@ Active Directory
     
     Worse case: O(N)
     
-    
+    Like the File Recursion exercise the Active Directory exercise relies on recursion, therefor the space complexity
+    is O(NM) where N is the number of user groups we have to search. Worst case is all of them, best case is
+    the user is found in the parent directory. 
      
 
 Blockchain
@@ -140,6 +154,8 @@ Blockchain
     tracks the tail_node. All we need to do reasign the previous tail's next pointer.
     
        Worst case: O(1)
+       
+    Space complexity for blockchain is O(N) for a singly-linked list.
     
 
 Union Intersection
@@ -160,5 +176,6 @@ Union Intersection
         Worst case: O(N) for traversing linked list.
     
     
-
-    
+    Not sure if the Linked Lists used in this exercise would count towards the space complexity as they are
+    not technically part of the datastructure used to solve the problem. Anyway, we have two linked lists, so 
+    space complexity would be O(N2)

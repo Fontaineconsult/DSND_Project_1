@@ -173,3 +173,15 @@ if __name__ == '__main__':
     element_1 = ['a','b','c']
     element_2 = ['a','b','c','d']
     test_case(element_1, element_2)
+
+    element_1 = []
+    element_2 = [10,9,8,7]
+    test_case(element_1, element_2)
+
+    element_1 = []
+    element_2 = []
+    test_case(element_1, element_2)
+
+    element_1 = [1,2,3,4,5,6]
+    element_2 = [7,8,9,10,11]
+    test_case(element_1, element_2)

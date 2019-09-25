@@ -121,12 +121,18 @@ class LRUCache(object):
 
     def set(self, key, value):
 
+        if self.capacity == 0:
+            return "Can't set a 0 capacity cache"
+
         lookup_node = self.hashmap.lookup(key)
 
         if lookup_node is not False:
 
-            self.cache_list.move_to_front(lookup_node)
+            if lookup_node.value != value:
+                lookup_node.value = value
 
+            self.cache_list.move_to_front(lookup_node)
+            return lookup_node.value
 
         else:
             node = Node(key, value)
@@ -135,6 +141,7 @@ class LRUCache(object):
 
                 self.hashmap.store(key, node)
                 self.cache_list.insert(node)
+                return node.value
 
             else:
                 # add node to front and add to dict
@@ -144,6 +151,7 @@ class LRUCache(object):
 
                 removed_node_key = self.cache_list.remove_least_used()
                 self.hashmap.delete(removed_node_key)
+                return node.value
 
     def __str__(self):
 
@@ -163,38 +171,24 @@ if __name__ == "__main__":
     our_cache = LRUCache(5)
 
     values_1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
-
+    print('Test 1: Setting Values')
     for each in values_1:
         our_cache.set(each, each)
         print(our_cache)
 
+    print("Test 1: Getting Values")
     for each in values_1:
         print("Getting Value {} from cache".format(each), "Got Value, {}".format(our_cache.get(each)))
         print(our_cache)
-
-    values_2 = [20, 21, 22, 23, 24, 25]
-
-    for each in values_2:
-        our_cache.set(each, each)
+    print("\n")
+    values_1_1 = [7, 8, 9, 10]
+    print("Test 2: Resetting Values from Test 1")
+    for each in values_1_1:
+        print("Resetting: {} to {} and got {}".format(each, each + 100, our_cache.set(each, each + 100)))
         print(our_cache)
+    print("\n")
+    print("Test 3: 0 Length Cache")
 
-    print("Next Test")
-
-    next_cache = LRUCache(10)
-
-    for x in range(100):
-        number = random.randint(0,100)
-        next_cache.set(number, number)
-        number_2 = random.randint(0,100)
-        print("Getting ", number_2, next_cache.get(number_2))
-        print(next_cache)
-
-    print("Next Next Test")
-
-    next_next_cache = LRUCache(1)
-    for each in values_1:
-        next_next_cache.set(each,each)
-        print(next_next_cache)
-        print("Getting ", each -1, next_next_cache.get(each-1))
-
-
+    our_cache = LRUCache(0)
+    print(our_cache.set(1,1))
+    print("Getting Value {} from cache".format(1), "Got Value, {}".format(our_cache.get(1)))

@@ -14,17 +14,27 @@ class BlockChain():
 
     def add_block(self, data):
 
-        if self.tail:
-
-            new_block = Block(time.time(), data, self.tail.hash)
-            self.tail = new_block
-
+        if len(data) == 0:
+            print("Can't create a block with no data \n")
         else:
-            new_block = Block(time.time(), data, self.genesisblock.hash)
-            self.tail = new_block
+
+            if self.tail:
+
+                new_block = Block(time.time(), data, self.tail.hash)
+                self.tail = new_block
+
+            else:
+                new_block = Block(time.time(), data, self.genesisblock.hash)
+                self.tail = new_block
 
     def get_recent_block(self):
-        return self.tail
+        if self.tail is None:
+            return "Blockchain is empty"
+        else:
+            return "Block {}, with hash {}, and previous hash {}, made on {}".format(self.tail.data,
+                                                                                     self.tail.hash,
+                                                                                     self.tail.previous_hash,
+                                                                                     self.tail.timestamp)
 
 
 class Block:
@@ -34,6 +44,9 @@ class Block:
         self.data = data
         self.previous_hash = previous_hash
         self.hash = self.calc_hash()
+
+    def get_previous(self):
+        return self
 
     def calc_hash(self):
         sha = hashlib.sha256()
@@ -45,26 +58,27 @@ if __name__ == '__main__':
 
     new_chain = BlockChain()
 
-    new_chain.add_block("This is the genesisblock")
+    new_chain.add_block("This is the block that comes after the gen block")
     newest = new_chain.get_recent_block()
-    print(newest.data, newest.hash, newest.previous_hash)
+    print(newest)
     print("\n")
-
-    new_chain.add_block("This is the block that comes after the gen block, ")
+    new_chain.add_block("I am also a block")
     newest = new_chain.get_recent_block()
-    print(newest.data, "My hash: ", newest.hash, "Previous Hash ", newest.previous_hash)
+    print(newest)
     print("\n")
-    new_chain.add_block("I am also a block, ")
+    new_chain.add_block("So am I!")
     newest = new_chain.get_recent_block()
-    print(newest.data, "My hash: ", newest.hash, "Previous Hash ", newest.previous_hash)
+    print(newest)
     print("\n")
-    new_chain.add_block("So am I!, ")
+    new_chain.add_block("I'm the last block and the tail node")
     newest = new_chain.get_recent_block()
-    print(newest.data, "My hash: ", newest.hash, "Previous Hash ", newest.previous_hash)
+    print(newest)
     print("\n")
-    new_chain.add_block("I'm the last block and the tail node., ")
+    print("Adding 0 length block")
+    new_chain.add_block("")
     newest = new_chain.get_recent_block()
-    print(newest.data, "My hash: ", newest.hash, "Previous Hash ", newest.previous_hash)
+    print(newest)
     print("\n")
-
-
+    print("Making a new empty blockchain")
+    empty_chain = BlockChain()
+    print(empty_chain.get_recent_block())
