@@ -29,7 +29,7 @@ LRU Cache
     
     _Using Hash and Linked lists are ideal for LRU cache as they are both (O)1 when looking up and reordering._
     
-    Worst case is O(1)
+        Worst case is O(1) for get and set.
     
     Space complexity for a linked list and hashtable is O(N). We use one of each and they both store the 
     same data, so space compexity would be O(N2)
@@ -57,8 +57,8 @@ File Recursion
     Recursive function = O(M) depth of the recursion
     Two loops = O(N) + O(N) number of files and folders, number of files. 
     
-    Worst case time complexity: O(M2N) Where M is the number of recursive calls and N is the number of files/folders in 
-    each function call.
+        Worst case time complexity: O(M2N) Where M is the number of recursive calls and N is the number of files/folders in 
+        each function call.
     
     
     
