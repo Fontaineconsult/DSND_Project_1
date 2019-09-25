@@ -1,6 +1,6 @@
 import hashlib
 import time
-
+from datetime import datetime
 
 class BlockChain():
 
@@ -10,6 +10,7 @@ class BlockChain():
         self.tail = None
 
     def _create_gen_block(self):
+        print("Creating A New Block")
         return Block(time.time(), '', None)
 
     def add_block(self, data):
@@ -29,12 +30,12 @@ class BlockChain():
 
     def get_recent_block(self):
         if self.tail is None:
-            return "Blockchain is empty"
+            return "Blockchain is empty \n"
         else:
-            return "Block {}, with hash {}, and previous hash {}, made on {}".format(self.tail.data,
+            return "---Block--- \n Data: {}, \n Hash: {},\n Previous Hash: {},\n Date: {}".format(self.tail.data,
                                                                                      self.tail.hash,
                                                                                      self.tail.previous_hash,
-                                                                                     self.tail.timestamp)
+                                                                                     datetime.fromtimestamp(self.tail.timestamp))
 
 
 class Block:
@@ -49,14 +50,22 @@ class Block:
         return self
 
     def calc_hash(self):
+
         sha = hashlib.sha256()
-        sha.update(self.data.encode('utf-8'))
+
+        if self.previous_hash is not None:
+            concat_string = self.data + str(self.timestamp) + self.previous_hash
+            sha.update(concat_string.encode('utf-8'))
+        else:
+            concat_string = self.data + str(self.timestamp)
+            sha.update(concat_string.encode('utf-8'))
         return sha.hexdigest()
 
 
 if __name__ == '__main__':
 
     new_chain = BlockChain()
+    print(new_chain.get_recent_block())
 
     new_chain.add_block("This is the block that comes after the gen block")
     newest = new_chain.get_recent_block()

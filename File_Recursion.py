@@ -7,7 +7,9 @@ testdir_2 = os.path.join(os.getcwd(), "testdir_2")
 
 def find_files(suffix, path):
 
-
+    if suffix is None or len(suffix) == 0:
+        print("No Suffix Provided")
+        return None
 
 
     def walk_dir(suffix, path):
@@ -24,7 +26,7 @@ def find_files(suffix, path):
 
             if os.path.isfile(test_path):
 
-                if each[-2:] == suffix:
+                if each.endswith(suffix):
                     files.append(os.path.join(test_path, each))
         return files
 
@@ -56,4 +58,18 @@ if __name__ == "__main__":
     print("Searching testdir_2 for files ending in .c. testdir_2 contains no .C files")
     files = find_files(".c", testdir_2)
     print("The Following Files were found ending in .c")
+    print(files)
+
+    print("\n")
+
+    print("Searching testdir_1 for files ending in .txt. testdir_1 contains no .txt files")
+    files = find_files(".txt", testdir_2)
+    print("The Following Files were found ending in .txt")
+    print(files)
+
+    print("\n")
+
+    print("Searching testdir_1 with 0 length suffix")
+    files = find_files("", testdir_2)
+    print("The Following Files were found ending in ''")
     print(files)

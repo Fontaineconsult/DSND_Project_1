@@ -54,10 +54,13 @@ File Recursion
     
     _Using Recursion is efficient as we only call the function once for each folder._  
     
-    Recursive function = O(N) depth of the recursion
+    Recursive function = O(M) depth of the recursion
     Two loops = O(N) + O(N) number of files and folders, number of files. 
     
-    Worst case time complexity: O(N + (O(N) + O(N))) ???
+    Worst case time complexity: O(M2N) Where M is the number of recursive calls and N is the number of files/folders in 
+    each function call.
+    
+    
     
     Space complexity for recursive functions is O(NM), where n the depth of the recursive stack
     and M is the size of each function call. The space complexity for the file recursion would
@@ -126,7 +129,8 @@ Huffman Tree
         
     Since most opperations are O(N), we can say:
     
-        Worst Case: (N Log N) + 9N where N is length of input string
+        Added up: (N Log N) + 9N
+        Worse Case: (N Log N) from sorting the string characters by frequency. Where N is the number of unique characters
         
         
     Space complexity for a binary tree is O(N), so the space complexity is O(N), where N is the size of the 
@@ -139,9 +143,9 @@ Active Directory
     
     _Recursion is the most elegant datastructure for this exercise as it only called until it finds the name._ 
     
-    Time complexity would be (O)N + (O)M where N is the depth of the recursive search and M is the lengh of each user list
+    Time complexity would be (O)N * (O)M where N is the depth of the recursive search and M is the lengh of each user list
     
-    Worse case: O(N)
+    Worse case: O(NM)
     
     Like the File Recursion exercise the Active Directory exercise relies on recursion, therefor the space complexity
     is O(NM) where N is the number of user groups we have to search. Worst case is all of them, best case is
@@ -153,7 +157,8 @@ Blockchain
     The blockchain is just a linkedlist. Adding a Block to the list happens in O(1) time since the blockchain 
     tracks the tail_node. All we need to do reasign the previous tail's next pointer.
     
-       Worst case: O(1)
+       Worst case time complexity: O(1) for adding a new block. Not sure what the time complexity of producing a SHA256
+       hash in python is.
        
     Space complexity for blockchain is O(N) for a singly-linked list.
     
@@ -173,7 +178,7 @@ Union Intersection
     linked list, the second hash stores vales from the second linked list. If a value from the second linked list is
     already in the first hash, but NOT in the second hash, we added to our ouput then add it to the hash.
     
-        Worst case: O(N) for traversing linked list.
+        Worst case: O(N + M) for traversing linked list. Where N and M are the respective lengths of the input list. 
     
     
     Not sure if the Linked Lists used in this exercise would count towards the space complexity as they are
